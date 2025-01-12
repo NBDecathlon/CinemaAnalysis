@@ -38,3 +38,28 @@ def plot_top_regions(moyennes_par_region_2021, moyennes_par_region_2022):
 
     plt.tight_layout()
     plt.show()
+
+def get_top_and_bottom_regions(moyennes_par_region, n=3):
+    """
+    Identifie les régions avec les meilleures et les pires moyennes par fauteuil.
+    :param moyennes_par_region: Série contenant les moyennes par région.
+    :param n: Nombre de régions à extraire pour le top et le bottom.
+    :return: Deux DataFrames (top_n, bottom_n).
+    """
+    top_n = moyennes_par_region.sort_values(ascending=False).head(n)
+    bottom_n = moyennes_par_region.sort_values(ascending=True).head(n)
+    return top_n, bottom_n
+
+def plot_all_regions(moyennes_par_region):
+    """
+    Crée un graphique pour toutes les régions, triées par leurs moyennes.
+    """
+    moyennes_par_region.sort_values(ascending=False).plot(
+        kind="bar", color="lightblue", figsize=(12, 6)
+    )
+    plt.title("Entrées moyennes par fauteuil pour toutes les régions (2022)")
+    plt.ylabel("Entrées moyennes par fauteuil")
+    plt.xlabel("Régions")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
